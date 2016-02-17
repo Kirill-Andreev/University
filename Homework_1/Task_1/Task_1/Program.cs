@@ -44,8 +44,8 @@ namespace Task_1
             int number;
             Console.WriteLine("Enter the number: ");
             number = Convert.ToInt32(Console.ReadLine());
-            //Console.WriteLine(RecursiveFactorial(number));
-            Console.WriteLine(IterativeFactorial(number));
+            Console.WriteLine("Result of recursive factorial: " + RecursiveFactorial(number));
+            Console.WriteLine("Result of iterative factorial: " + IterativeFactorial(number));
         }
     }
 }
