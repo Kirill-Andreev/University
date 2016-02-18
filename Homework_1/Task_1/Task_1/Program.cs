@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace Task_1
 {
+    /// <summary>
+    /// Class Program
+    /// main class of the program displays the factorial of a number n
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// Method RecursiveFactorial()
+        /// recursively calculates the factorial of a number and returns it
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         private static int RecursiveFactorial(int n)
         {
             if (n == 0)
@@ -20,7 +30,12 @@ namespace Task_1
             }
             return n * RecursiveFactorial(n - 1);
         }
-
+        /// <summary>
+        /// Method IterativeFactorial()
+        /// iteratively calculates the factorial of a number and returns it
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         private static int IterativeFactorial(int n)
         {
             int result = 1;
@@ -38,8 +53,12 @@ namespace Task_1
             }
             return result;
         }
-
-        static void Main(string[] args)
+        /// <summary>
+        /// Method Main()
+        /// is the entry point of the program
+        /// </summary>
+        /// <param name="args"></param>
+        public static void Main(string[] args)
         {
             int number;
             Console.WriteLine("Enter the number: ");
