@@ -17,15 +17,15 @@ namespace Task_5
         /// <param name="array"></param>
         /// <param name="rows"></param>
         /// <param name="columns"></param>
-        private static void SortMatrixByColumns(int[,] array, int rows, int columns)
+        private static void SortMatrixByColumns(int[,] array)
         {
-            for (int i = 0; i < columns; ++i)
+            for (int i = 0; i < array.GetLength(1); ++i)
             {
-                for (int j = columns - 1; j > i; --j)
+                for (int j = array.GetLength(1) - 1; j > i; --j)
                 {
                     if (array[0, j - 1] > array[0, j])
                     {
-                        for (int n = 0; n < rows; ++n)
+                        for (int n = 0; n < array.GetLength(0); ++n)
                         {
                             int temp = array[n, j - 1];
                             array[n, j - 1] = array[n, j];
@@ -44,11 +44,11 @@ namespace Task_5
         /// <param name="array"></param>
         /// <param name="rows"></param>
         /// <param name="columns"></param>
-        private static void MatrixOutput(int[,] array, int rows, int columns)
+        private static void MatrixOutput(int[,] array)
         {
-            for (int i = 0; i < rows; ++i)
+            for (int i = 0; i < array.GetLength(0); ++i)
             {
-                for (int j = 0; j < columns; ++j)
+                for (int j = 0; j < array.GetLength(1); ++j)
                 {
                     Console.Write(array[i, j] + " ");
                 }
@@ -63,27 +63,25 @@ namespace Task_5
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            int rows = 0;
-            int columns = 0;
             Console.WriteLine("Enter the number of rows of matrix: ");
-            rows = Convert.ToInt32(Console.ReadLine());
+            int rows = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter the number of columns of matrix: ");
-            columns = Convert.ToInt32(Console.ReadLine());
+            int columns = Convert.ToInt32(Console.ReadLine());
             int[,] array = new int[rows, columns];
             Random rand = new Random();
-            for (int i = 0; i < rows; ++i)
+            for (int i = 0; i < array.GetLength(0); ++i)
             {
-                for (int j = 0; j < columns; ++j)
+                for (int j = 0; j < array.GetLength(1); ++j)
                 {
                     array[i, j] = rand.Next(0, 100);
                 }
             }
 
             Console.WriteLine("Our matrix: ");
-            MatrixOutput(array, rows, columns);
+            MatrixOutput(array);
             Console.WriteLine("Sorted matrix: ");
-            SortMatrixByColumns(array, rows, columns);
-            MatrixOutput(array, rows, columns);
+            SortMatrixByColumns(array);
+            MatrixOutput(array);
         }
     }
 }
