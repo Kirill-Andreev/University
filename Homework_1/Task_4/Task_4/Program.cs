@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task_4
 {
@@ -32,19 +28,31 @@ namespace Task_4
                 {
                     case 0:
                         i--;                               // up
-                        if (j - 1 == i) turns++;
+                        if (j - 1 == i)
+                        {
+                            turns++;
+                        }
                         break;
                     case 1:
                         j++;                               // right
-                        if (dim - j - 1 == i) turns++;
+                        if (dim - j - 1 == i)
+                        {
+                            turns++;
+                        }
                         break;
                     case 2:
                         i++;                               // down
-                        if (dim - j == dim - i) turns++;
+                        if (dim - j == dim - i)
+                        {
+                            turns++;
+                        }
                         break;
                     case 3:
                         j--;                               // left
-                        if (i == dim - j - 1) turns++;
+                        if (i == dim - j - 1)
+                        {
+                            turns++;
+                        }
                         break;
                 }
             }
@@ -57,11 +65,11 @@ namespace Task_4
         /// </summary>
         /// <param name="array"></param>
         /// <param name="dim"></param>
-        private static void NormalOutput(int[,] array, int dim)
+        private static void NormalOutput(int[,] array)
         {
-            for (int i = 0; i < dim; ++i)
+            for (int i = 0; i < array.GetLength(0); ++i)
             {
-                for (int j = 0; j < dim; ++j)
+                for (int j = 0; j < array.GetLength(1); ++j)
                 {
                     Console.Write(array[i, j] + " ");
                 }
@@ -76,9 +84,8 @@ namespace Task_4
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            int dim = 0;
             Console.WriteLine("Enter the dimension of matrix: ");
-            dim = Convert.ToInt32(Console.ReadLine());
+            int dim = Convert.ToInt32(Console.ReadLine());
             int[,] array = new int[dim, dim];
             Random rand = new Random();
             for (int i = 0; i < dim; ++i)
@@ -89,7 +96,7 @@ namespace Task_4
                 }
             }
             Console.WriteLine("Our matrix: ");
-            NormalOutput(array, dim);
+            NormalOutput(array);
             Console.Write("Matrix elements derived in a spiral: ");
             OutputInSpiral(array, dim);
         }
