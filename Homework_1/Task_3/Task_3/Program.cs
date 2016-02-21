@@ -21,13 +21,21 @@ namespace Task_3
         private static void QuickSort(int[] array, int first, int last)
         {
             int prop = array[(last - first) / 2 + first];
-            int temp;
             int i = first;
             int j = last;
             while (i <= j)
             {
-                while ((array[i] < prop) && (i <= last)) ++i;
-                while ((array[j] > prop) && (j >= first)) --j;
+                while ((array[i] < prop) && (i <= last))
+                {
+                    ++i;
+                }
+
+                while ((array[j] > prop) && (j >= first))
+                {
+                    --j;
+                }
+
+                int temp;
                 if (i <= j)
                 {
                     temp = array[i];
@@ -37,8 +45,16 @@ namespace Task_3
                     --j;
                 }
             }
-            if (j > first) QuickSort(array, first, j);
-            if (i < last) QuickSort(array, i, last);
+
+            if (j > first)
+            {
+                QuickSort(array, first, j);
+            }
+
+            if (i < last)
+            {
+                QuickSort(array, i, last);
+            }
         }
 
         /// <summary>
@@ -50,7 +66,7 @@ namespace Task_3
         {
             int[] array = new int[20];
             Random rand = new Random();
-            for (int i = 0; i < 20; ++i)
+            for (int i = 0; i < array.Length; ++i)
             {
                 array[i] = rand.Next(-100, 100);
             }
