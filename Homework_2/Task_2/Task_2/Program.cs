@@ -1,7 +1,6 @@
 ﻿using System;
-using ListNameSpace;
 
-namespace Task_2
+namespace ListNameSpace
 {
     /// <summary>
     /// Main class of the program

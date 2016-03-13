@@ -1,4 +1,4 @@
-﻿namespace IListNameSpace
+﻿namespace ListNameSpace
 {
     /// <summary>
     /// Interface of list
