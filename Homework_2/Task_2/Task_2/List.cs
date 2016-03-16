@@ -1,4 +1,6 @@
-﻿namespace ListNameSpace
+﻿using ExceptionNamespace;
+
+namespace ListNameSpace
 {
     /// <summary>
     /// List class implements the methods 
@@ -45,19 +47,13 @@
             }
         }
 
-        private void ErrorMessage()
-        {
-            System.Console.WriteLine("Error! Enter the correct position!");
-        }
-
         public void Add(int position, int newElement)
         {
             ListElement newListElement = new ListElement(newElement);
 
             if (position > size)
             {
-                ErrorMessage();
-                return;
+                throw new IncorrectPositionException();
             }
 
             if (position == 0)
@@ -81,11 +77,16 @@
 
         public void Remove(int position)
         {
+            if (size == 0)
+            {
+                throw new EmptyListException();
+            }
+
             if (position >= size)
             {
-                ErrorMessage();
-                return;
+                throw new IncorrectPositionException();
             }
+
             if (position == 0)
             {
                 head = head.Next;
@@ -110,10 +111,14 @@
 
         public int Get(int position)
         {
+            if (size == 0)
+            {
+                throw new EmptyListException();
+            }
+
             if (position >= size)
             {
-                ErrorMessage();
-                return System.Int32.MinValue;
+                throw new IncorrectPositionException();
             }
 
             ListElement temp = head;

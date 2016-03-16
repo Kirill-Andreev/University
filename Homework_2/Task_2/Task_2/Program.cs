@@ -1,4 +1,5 @@
 ﻿using System;
+using ExceptionNamespace;
 
 namespace ListNameSpace
 {
@@ -15,26 +16,40 @@ namespace ListNameSpace
         public static void Main(string[] args)
         {
             List list = new List();
-            list.Add(0, 1);
-            list.Add(1, 3);
-            list.Add(1, 2);
-            list.Add(3, 4);
-            int count = list.GetSize();
-            for (int i = 0; i < count; ++i)
+            try
             {
-                Console.Write(list.Get(i) + " ");
-            }
+                list.Add(0, 1);
+                list.Add(1, 3);
+                list.Add(1, 2);
+                list.Add(3, 4);
+                int count = list.GetSize();
+                for (int i = 0; i < count; ++i)
+                {
+                    Console.Write(list.Get(i) + " ");
+                }
 
-            Console.WriteLine();
-            list.Remove(0);
-            list.Remove(1);
-            count = list.GetSize();
-            for (int i = 0; i < count; ++i)
+                Console.WriteLine();
+                list.Remove(0);
+                list.Remove(1);
+                list.Remove(1);
+                list.Remove(0);
+                list.Remove(10);
+                count = list.GetSize();
+                for (int i = 0; i < count; ++i)
+                {
+                    Console.Write(list.Get(i) + " ");
+                }
+
+                Console.WriteLine();
+            }
+            catch (IncorrectPositionException e)
             {
-                Console.Write(list.Get(i) + " ");
+                Console.WriteLine(e);
             }
-
-            Console.WriteLine();
+            catch(EmptyListException e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
