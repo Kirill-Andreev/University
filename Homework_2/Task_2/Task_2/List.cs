@@ -16,35 +16,24 @@ namespace ListNameSpace
         /// </summary>
         private class ListElement
         {
-            private int data;
-            private ListElement next;
-
             /// <summary>
             /// Class constructor
             /// </summary>
             /// <param name="value"></param>
             public ListElement(int value)
             {
-                this.data = value;
+                this.Data = value;
             }
 
             /// <summary>
             /// Data field properties
             /// </summary>
-            public int Data
-            {
-                get { return data; }
-                set { data = value; }
-            }
+            public int Data { get; set; }
 
             /// <summary>
             /// Next field properties
             /// </summary>
-            public ListElement Next
-            {
-                get { return next; }
-                set { next = value; }
-            }
+            public ListElement Next { get; set; }
         }
 
         public void Add(int position, int newElement)
