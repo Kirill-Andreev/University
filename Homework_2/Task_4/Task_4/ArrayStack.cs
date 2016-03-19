@@ -1,6 +1,4 @@
-﻿using IStackNameSpace;
-
-namespace ArrayStackNameSpace
+﻿namespace StackNameSpace
 {
     /// <summary>
     /// Array stack class implements the methods 
@@ -22,12 +20,20 @@ namespace ArrayStackNameSpace
 
         public void Push(int value)
         {
+            if (IsOverflowed())
+            {
+                throw new System.NullReferenceException("Out of array bounds!");
+            }
             ptr++;
             stack[ptr] = value;
         }
 
         public int Pop()
         {
+            if (IsEmpty())
+            {
+                throw new System.NullReferenceException("Out of array bounds!");
+            }
             return stack[ptr--];
         }
 

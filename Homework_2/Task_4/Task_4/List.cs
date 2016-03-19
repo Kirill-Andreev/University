@@ -14,9 +14,6 @@
         /// </summary>
         private class ListElement
         {
-            private int data;
-            private ListElement next;
-
             /// <summary>
             /// Class constructor
             /// </summary>
@@ -43,6 +40,11 @@
             System.Console.WriteLine("Error! Enter the correct position!");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="newElement"></param>
         public void Add(int position, int newElement)
         {
             ListElement newListElement = new ListElement(newElement);

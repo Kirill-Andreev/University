@@ -45,9 +45,11 @@
   <ItemGroup>
     <Compile Include="ArrayStack.cs" />
     <Compile Include="Calculator.cs" />
+    <Compile Include="EmptyStackException.cs" />
     <Compile Include="IStack.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListStack.cs" />
+    <Compile Include="OverFlowStackException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
