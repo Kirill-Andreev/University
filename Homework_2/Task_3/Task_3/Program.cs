@@ -1,7 +1,7 @@
 ﻿using System;
-using HashTableNameSpace;
+using ExceptionNameSpace;
 
-namespace Task_3
+namespace HashTableNameSpace
 {
     /// <summary>
     /// Main class of the programm

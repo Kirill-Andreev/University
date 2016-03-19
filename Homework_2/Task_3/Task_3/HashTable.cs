@@ -1,5 +1,6 @@
-﻿using IHashTableNameSpace;
+﻿using System;
 using ListNameSpace;
+using ExceptionNameSpace;
 
 namespace HashTableNameSpace
 {
@@ -43,16 +44,30 @@ namespace HashTableNameSpace
 
         public void Remove(int element)
         {
-            hashTable[HashFunction(element)].Remove(element);
+            try
+            {
+                hashTable[HashFunction(element)].Remove(element);
+            }
+            catch (EmptyListException e)
+            {
+                Console.WriteLine(e);
+                Console.WriteLine();
+            }
         }
 
         public bool Check(int element)
         {
-            if (hashTable[HashFunction(element)].Get(element) == element)
+            bool check = false;
+            try
             {
-                return true;
+                check = (hashTable[HashFunction(element)].Get(element) == element);
             }
-            return false;
+            catch (EmptyListException e)
+            {
+                Console.WriteLine(e);
+                Console.WriteLine();
+            }
+            return check;
         }
     }
 }

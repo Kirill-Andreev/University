@@ -1,4 +1,4 @@
-﻿namespace IHashTableNameSpace
+﻿namespace HashTableNameSpace
 {
     /// <summary>
     /// Interface of hash table

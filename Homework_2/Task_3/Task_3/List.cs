@@ -1,4 +1,6 @@
-﻿namespace ListNameSpace
+﻿using ExceptionNameSpace;
+
+namespace ListNameSpace
 {
     /// <summary>
     /// List class implements the methods 
@@ -13,35 +15,24 @@
         /// </summary>
         private class ListElement
         {
-            private int data;
-            private ListElement next;
-
             /// <summary>
             /// Class constructor
             /// </summary>
             /// <param name="value"></param>
             public ListElement(int value)
             {
-                this.data = value;
+                this.Data = value;
             }
 
             /// <summary>
             /// Data field properties
             /// </summary>
-            public int Data
-            {
-                get { return data; }
-                set { data = value; }
-            }
+            public int Data { get; set; }
 
             /// <summary>
             /// Next field properties
             /// </summary>
-            public ListElement Next
-            {
-                get { return next; }
-                set { next = value; }
-            }
+            public ListElement Next { get; set; }
         }
 
         /// <summary>
@@ -61,6 +52,11 @@
         /// <param name="element"></param>
         public void Remove(int element)
         {
+            if (head == null)
+            {
+                throw new EmptyListException();
+            }
+
             if (head.Data == element)
             {
                 head = head.Next;
@@ -90,7 +86,7 @@
         {
             if (head == null)
             {
-                return System.Int32.MinValue;
+                throw new EmptyListException();
             }
 
             ListElement temp = head;
