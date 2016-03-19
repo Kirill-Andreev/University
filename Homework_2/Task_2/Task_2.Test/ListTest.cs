@@ -25,20 +25,23 @@
         [TestMethod]
         public void RemoveTest()
         {
+            list.Add(0, 1);
             list.Remove(0);
             Assert.AreEqual(0, list.GetSize());
         }
 
         [TestMethod]
-        public void RemoveFromEmtyList()
+        [ExpectedException(typeof(EmptyListException))]
+        public void RemoveFromEmptyList()
         {
             list.Remove(0);
         }
 
         [TestMethod]
-        public void GetFromEmtyList()
+        public void GetFromEmptyList()
         {
-            list.Get(0);
+            list.Add(0, 1);
+            Assert.AreEqual(list.Get(0), 1);
         }
     }
 }

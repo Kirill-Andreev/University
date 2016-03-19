@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace ExceptionNamespace
+namespace ListNameSpace
 {
+    /// <summary>
+    /// Exception class of empty list
+    /// </summary>
     [Serializable]
     public class EmptyListException : ApplicationException
     {

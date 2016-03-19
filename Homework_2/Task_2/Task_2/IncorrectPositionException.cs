@@ -1,7 +1,11 @@
 ﻿using System;
 
-namespace ExceptionNamespace
+namespace ListNameSpace
 {
+    /// <summary>
+    /// Exception class of incorrect position 
+    /// at which refer to non-existent memory space
+    /// </summary>
     [Serializable]
     public class IncorrectPositionException : ApplicationException
     {
