@@ -25,14 +25,7 @@ namespace CalculatorNameSpace
         /// <param name="value"></param>
         public void Push(int value)
         {
-            try
-            {
-                stack.Push(value);
-            }
-            catch (OverFlowStackException)
-            {
-                throw;
-            }
+            stack.Push(value);
         }
 
         /// <summary>
@@ -40,20 +33,9 @@ namespace CalculatorNameSpace
         /// </summary>
         public void Addition()
         {
-            try
-            {
-                int first = stack.Pop();
-                int second = stack.Pop();
-                stack.Push(second + first);
-            }
-            catch (EmptyStackException)
-            {
-                throw;
-            }
-            catch (OverFlowStackException)
-            {
-                throw;
-            }
+            int first = stack.Pop();
+            int second = stack.Pop();
+            stack.Push(second + first);
         }
 
         /// <summary>
@@ -61,20 +43,9 @@ namespace CalculatorNameSpace
         /// </summary>
         public void Subtraction()
         {
-            try
-            {
-                int first = stack.Pop();
-                int second = stack.Pop();
-                stack.Push(second - first);
-            }
-            catch (EmptyStackException)
-            {
-                throw;
-            }
-            catch (OverFlowStackException)
-            {
-                throw;
-            }
+            int first = stack.Pop();
+            int second = stack.Pop();
+            stack.Push(second - first);
         }
 
         /// <summary>
@@ -82,20 +53,9 @@ namespace CalculatorNameSpace
         /// </summary>
         public void Multiplication()
         {
-            try
-            {
-                int first = stack.Pop();
-                int second = stack.Pop();
-                stack.Push(second * first);
-            }
-            catch (EmptyStackException)
-            {
-                throw;
-            }
-            catch (OverFlowStackException)
-            {
-                throw;
-            }
+            int first = stack.Pop();
+            int second = stack.Pop();
+            stack.Push(second * first);
         }
 
         /// <summary>
@@ -103,32 +63,9 @@ namespace CalculatorNameSpace
         /// </summary>
         public void Division()
         {
-            try
-            {
-                int first = stack.Pop();
-                int second = stack.Pop();
-                if (first == 0)
-                {
-                    throw new DivideByZeroException();
-                }
-                try
-                {
-                    stack.Push(second / first);
-                }
-                catch (DivideByZeroException)
-                {
-                    stack.Push(Int32.MinValue);
-                    throw;
-                }
-            }
-            catch (EmptyStackException)
-            {
-                throw;
-            }
-            catch (OverFlowStackException)
-            {
-                throw;
-            }
+            int first = stack.Pop();
+            int second = stack.Pop();
+            stack.Push(second / first);
         }
 
         /// <summary>
@@ -137,16 +74,7 @@ namespace CalculatorNameSpace
         /// <returns></returns>
         public int Result()
         {
-            int result = Int32.MinValue;
-            try
-            {
-                result = stack.Pop();
-            }
-            catch (EmptyStackException)
-            {
-                throw;
-            }
-            return result;
+            return stack.Pop();
         }
     }
 }

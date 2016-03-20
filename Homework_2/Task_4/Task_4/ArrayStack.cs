@@ -22,7 +22,7 @@
         {
             if (IsOverflowed())
             {
-                throw new System.NullReferenceException("Out of array bounds!");
+                throw new OverFlowStackException("Out of array bounds!");
             }
             ptr++;
             stack[ptr] = value;
@@ -32,7 +32,7 @@
         {
             if (IsEmpty())
             {
-                throw new System.NullReferenceException("Out of array bounds!");
+                throw new OverFlowStackException("Out of array bounds!");
             }
             return stack[ptr--];
         }
