@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StackNameSpace
+namespace CalculatorNameSpace
 {
     /// <summary>
     /// Exception class of the overflow list

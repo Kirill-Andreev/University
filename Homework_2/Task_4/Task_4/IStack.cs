@@ -1,9 +1,9 @@
-﻿namespace StackNameSpace
+﻿namespace CalculatorNameSpace
 {
     /// <summary>
     /// Interface of stack
     /// </summary>
-    interface IStack
+    public interface IStack
     {
         /// <summary>
         /// Adds new element to stack

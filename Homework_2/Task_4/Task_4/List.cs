@@ -1,4 +1,4 @@
-﻿namespace ListNameSpace
+﻿namespace CalculatorNameSpace
 {
     /// <summary>
     /// List class implements the methods 

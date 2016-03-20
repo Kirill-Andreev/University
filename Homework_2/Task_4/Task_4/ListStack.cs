@@ -1,12 +1,12 @@
-﻿namespace StackNameSpace
+﻿namespace CalculatorNameSpace
 {
-    class ListStack : IStack
+    public class ListStack : IStack
     {
-        private ListNameSpace.List stack;
+        private List stack;
 
         public ListStack()
         {
-            stack = new ListNameSpace.List();
+            stack = new List();
         }
 
         public void Push(int value)

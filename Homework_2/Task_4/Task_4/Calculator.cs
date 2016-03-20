@@ -1,5 +1,4 @@
 ﻿using System;
-using StackNameSpace;
 
 namespace CalculatorNameSpace
 {
@@ -7,7 +6,7 @@ namespace CalculatorNameSpace
     /// Implementation of
     /// Calculator class methods
     /// </summary>
-    class Calculator
+    public class Calculator
     {
         private IStack stack;
 

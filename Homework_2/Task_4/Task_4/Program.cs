@@ -1,5 +1,4 @@
 ﻿using System;
-using StackNameSpace;
 
 namespace CalculatorNameSpace
 {
@@ -8,7 +7,7 @@ namespace CalculatorNameSpace
     /// returns the result of operations
     /// on stack numbers 
     /// </summary>
-    class Program
+    public class Program
     {
         /// <summary>
         /// The entry point of the program

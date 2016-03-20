@@ -1,4 +1,4 @@
-﻿namespace StackNameSpace
+﻿namespace CalculatorNameSpace
 {
     /// <summary>
     /// Array stack class implements the methods 
