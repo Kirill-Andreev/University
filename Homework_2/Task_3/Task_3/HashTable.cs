@@ -1,6 +1,4 @@
 ﻿using System;
-using ListNameSpace;
-using ExceptionNameSpace;
 
 namespace HashTableNameSpace
 {
@@ -57,17 +55,14 @@ namespace HashTableNameSpace
 
         public bool Check(int element)
         {
-            bool check = false;
             try
             {
-                check = (hashTable[HashFunction(element)].Get(element) == element);
+                return (hashTable[HashFunction(element)].Get(element) == element);
             }
-            catch (EmptyListException e)
+            catch (EmptyListException)
             {
-                Console.WriteLine(e);
-                Console.WriteLine();
+                return false;
             }
-            return check;
         }
     }
 }

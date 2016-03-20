@@ -1,5 +1,4 @@
 ﻿using System;
-using ExceptionNameSpace;
 
 namespace HashTableNameSpace
 {

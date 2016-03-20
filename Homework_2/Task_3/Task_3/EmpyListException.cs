@@ -1,4 +1,4 @@
-﻿namespace ExceptionNameSpace
+﻿namespace HashTableNameSpace
 {
     [System.Serializable]
     public class EmptyListException : System.Exception

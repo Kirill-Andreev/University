@@ -1,6 +1,4 @@
-﻿using ExceptionNameSpace;
-
-namespace ListNameSpace
+﻿namespace HashTableNameSpace
 {
     /// <summary>
     /// List class implements the methods 
