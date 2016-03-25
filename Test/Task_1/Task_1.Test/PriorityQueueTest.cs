@@ -42,5 +42,12 @@ namespace Task_1.Test
         {
             queue.DeQueue();
         }
+
+        [TestMethod]
+        public void GetizeTest()
+        {
+            queue.EnQueue(1, 1);
+            Assert.AreEqual(queue.GetSize(), 1);
+        }
     }
 }
