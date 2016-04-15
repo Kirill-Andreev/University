@@ -17,8 +17,6 @@ namespace FoldNameSpace
         public static void Main(string[] args)
         {
             Fold fold = new Fold();
-            //fold.FoldFunction(new List<int>() { 1, 2, 3 }, 1, (acc, elem) => acc * elem);
-
             Console.WriteLine(fold.FoldFunction(new List<int>() { 1, 2, 3 }, 1, (acc, elem) => acc * elem));
         }
     }
