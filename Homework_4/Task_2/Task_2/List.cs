@@ -6,13 +6,13 @@
     /// </summary>
     public class List : IList
     {
-        protected int size;
-        protected ListElement head;
+        private int size;
+        private ListElement head;
 
         /// <summary>
         /// Class of list element
         /// </summary>
-        protected class ListElement
+        private class ListElement
         {
             /// <summary>
             /// Class constructor
@@ -121,6 +121,49 @@
         public int GetSize()
         {
             return size;
+        }
+
+        public bool IsExist(int element)
+        {
+            ListElement check = head;
+            bool areEqual = false;
+            if (size == 1)
+            {
+                if (check.Data == element)
+                {
+                    areEqual = true;
+                }
+            }
+            else if (size != 0)
+            {
+                while (check != null)
+                {
+                    if (check.Data == element)
+                    {
+                        areEqual = true;
+                    }
+                    check = check.Next;
+                }
+            }
+            return areEqual;
+        }
+        
+        /// <summary>
+        /// Get a position of the element
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        public int GetPos(int element)
+        {
+            ListElement check = head;
+            int position = 0;
+
+            while (check.Next != null && check.Data != element)
+            {
+                position++;
+                check = check.Next;
+            }
+            return position;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace ListNameSpace
             }
             try
             {
-                list.Remove(9);
+                list.Remove(2);
             }
             catch (NonexistentElementException e)
             {
@@ -34,10 +34,11 @@ namespace ListNameSpace
             }
 
             int counter = list.GetSize();
+            Console.WriteLine("List: ");
 
             for (int i = 0; i < counter; ++i)
             {
-                Console.Write("List: " + list.Get(i));
+                Console.Write(" " + list.Get(i));
             }
             Console.WriteLine();
         }
