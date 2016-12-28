@@ -35,6 +35,46 @@ namespace BinaryTree.Test
         }
 
         [TestMethod]
+        public void RemoveFromRootTest()
+        {
+            var tree = new BinaryTree<int>();
+            tree.Add(50);
+            tree.Add(10);
+            tree.Add(25);
+            tree.Add(3);
+            tree.Remove(50);
+            Assert.IsFalse(tree.Contains(50));
+        }
+
+        [TestMethod]
+        public void RemoveNodeWithTwoSonsTest()
+        {
+            var tree = new BinaryTree<int>();
+            tree.Add(50);
+            tree.Add(10);
+            tree.Add(25);
+            tree.Add(3);
+            tree.Add(5);
+            tree.Remove(10);
+            Assert.IsFalse(tree.Contains(10));
+            Assert.IsTrue(tree.Contains(3));
+            Assert.IsTrue(tree.Contains(5));
+        }
+
+        [TestMethod]
+        public void RemoveNodeWithOneSonTest()
+        {
+            var tree = new BinaryTree<int>();
+            tree.Add(50);
+            tree.Add(10);
+            tree.Add(25);
+            tree.Add(3);
+            tree.Remove(10);
+            Assert.IsFalse(tree.Contains(10));
+            Assert.IsTrue(tree.Contains(3));
+        }
+
+        [TestMethod]
         public void EnumeratorTest()
         {
             var tree = new BinaryTree<int>();

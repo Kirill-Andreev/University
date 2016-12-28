@@ -13,19 +13,25 @@ namespace BinaryTreeNameSpace
 
         public void Add(T element)
         {
-            if (root == null || root.Element.Equals(element))
+            if (root == null)
             {
                 root = new Node(element);
             }
             else
             {
+                if (root.Element.Equals(element))
+                {
+                    return;
+                }
+
                 Add(element, root);
             }
         }
 
         public bool Remove(T value)
         {
-            Node current, parent;
+            Node parent;
+            Node current;
             
             current = FindWithParent(value, out parent);
 
@@ -118,6 +124,12 @@ namespace BinaryTreeNameSpace
         /// </summary>
         public void PrintTree()
         {
+            if (root == null)
+            {
+                Console.WriteLine("Tree is empty!");
+                return;
+            }
+
             PrintNode(root);
         }
 
@@ -127,12 +139,6 @@ namespace BinaryTreeNameSpace
         /// <param name="node"></param>
         private void PrintNode(Node node)
         {
-            if (root == null)
-            {
-                Console.WriteLine("Tree is empty!");
-                return;
-            }
-
             if (node.Left != null)
             {
                 PrintNode(node.Left);
@@ -166,10 +172,20 @@ namespace BinaryTreeNameSpace
 
             if (root.Element.CompareTo(element) > 0)
             {
+                if (root.Left.Element.Equals(element))
+                {
+                    return;
+                }
+
                 Add(element, root.Left);
             }
             else
             {
+                if(root.Right.Element.Equals(element))
+                {
+                    return;
+                }
+
                 Add(element, root.Right);
             }
         }
