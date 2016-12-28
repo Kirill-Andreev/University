@@ -35,31 +35,25 @@ namespace GraphicEditor
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             IsClicked = false;
-            line = new Line(new Point(xCoord1, yCoord1), new Point(xCoord2, yCoord2));
-            if (IsMoveButtonClicked)
+            if(IsDrawButtonClicked)
+            {
+                line = new Line(new Point(xCoord1, yCoord1), new Point(xCoord2, yCoord2));
+                addLineCommand = new AddLineCommand(linesList, line);
+                addLineCommand.Execute();
+            }
+            else if (IsMoveButtonClicked)
             {
                 foreach (var line in linesList.lineList)
                 {
                     if (line.IsLineClicked())
                     {
-                        if (line.pointClicked1)
-                        {
-                            moveLineCommand = new MoveLineCommand(line);
-                            moveLineCommand.Execute(line.Point1, new Point(e.X, e.Y));
-                            line.pointClicked1 = false;
-                        }
-                        else
-                        {
-                            moveLineCommand = new MoveLineCommand(line);
-                            moveLineCommand.Execute(line.Point2, new Point(e.X, e.Y));
-                            line.pointClicked2 = false;
-                        }
+                        moveLineCommand = new MoveLineCommand(line);
+                        moveLineCommand.Execute(e.Location);
                     }
                 }
             }
 
-            addLineCommand = new AddLineCommand(linesList, line);
-            addLineCommand.Execute();
+            pictureBox1.Invalidate();
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -79,11 +73,15 @@ namespace GraphicEditor
                     {
                         xCoord1 = line.Point2.X;
                         yCoord1 = line.Point2.Y;
+                        xCoord2 = e.X;
+                        yCoord2 = e.Y;
                     }
                     else if (line.pointClicked2)
                     {
-                        xCoord2 = line.Point1.X;
-                        yCoord2 = line.Point1.Y;
+                        xCoord1 = line.Point1.X;
+                        yCoord1 = line.Point1.Y;
+                        xCoord2 = e.X;
+                        yCoord2 = e.Y;
                     }
                 }
             }
@@ -102,7 +100,11 @@ namespace GraphicEditor
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             Pen pen = new Pen(Color.Black);
-            e.Graphics.DrawLine(pen, new Point(xCoord1, yCoord1), new Point(xCoord2, yCoord2));
+            if (IsDrawButtonClicked || IsMoveButtonClicked && line.IsLineClicked())
+            {
+                e.Graphics.DrawLine(pen, new Point(xCoord1, yCoord1), new Point(xCoord2, yCoord2));
+            }
+            
             foreach (var line in linesList.lineList)
             {
                 e.Graphics.DrawLine(pen, line.Point1, line.Point2);

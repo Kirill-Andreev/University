@@ -12,16 +12,33 @@ namespace GraphicEditor
         Line line;
         LinesList linesList = new LinesList();
 
+        private Point prevPointLocation;
+
         public MoveLineCommand(/*LinesList linesListSet,*/ Line lineSet)
         {
             //linesList = linesListSet;
             line = lineSet;
         }
 
-        public void Execute(Point movedPointCoord, Point newPoint)
+        public void Execute(Point newPoint)
         {
-            movedPointCoord.X = newPoint.X;
-            movedPointCoord.Y = newPoint.Y;
+            if (line.pointClicked1)
+            {
+                prevPointLocation = line.Point1;
+                line.Point1 = newPoint;
+                line.pointClicked1 = false;
+            }
+            else
+            {
+                prevPointLocation = line.Point2;
+                line.Point2 = newPoint;
+                line.pointClicked2 = false;
+            }
+        }
+
+        public void UnExecute()
+        {
+
         }
     }
 }

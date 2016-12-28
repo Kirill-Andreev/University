@@ -21,5 +21,10 @@ namespace GraphicEditor
         {
             linesList.Add(line);
         }
+
+        public void UnExecute()
+        {
+            linesList.lineList.RemoveAt(linesList.lineList.Count - 1);
+        }
     }
 }

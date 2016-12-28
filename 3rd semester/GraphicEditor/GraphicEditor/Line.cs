@@ -11,7 +11,7 @@ namespace GraphicEditor
     {
         public bool pointClicked1 = false;
         public bool pointClicked2 = false;
-        private const double PointVicinity = 40;
+        private const double PointVicinity = 5;
 
         public Point Point1 { get; set; }
 
@@ -40,11 +40,11 @@ namespace GraphicEditor
 
         public void PointOfLineClicked(Point clickedPointCoord)
         {
-            if (PointVicinity > Math.Sqrt((Point1.X * Point1.X - clickedPointCoord.X * clickedPointCoord.X) + (Point1.Y * Point1.Y - clickedPointCoord.Y * clickedPointCoord.Y)))
+            if (PointVicinity > Math.Sqrt(Math.Pow((Point1.X - clickedPointCoord.X), 2) + Math.Pow((Point1.Y - clickedPointCoord.Y), 2)))
             {
                 pointClicked1 = true;
             }
-            else if (PointVicinity > Math.Sqrt((Point2.X * Point2.X - clickedPointCoord.X * clickedPointCoord.X) + (Point2.Y * Point2.Y - clickedPointCoord.Y * clickedPointCoord.Y)))
+            else if (PointVicinity > Math.Sqrt(Math.Pow((Point2.X - clickedPointCoord.X), 2) + Math.Pow((Point2.Y - clickedPointCoord.Y), 2)))
             {
                 pointClicked2 = true;
             }
