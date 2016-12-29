@@ -44,10 +44,10 @@
             this.pictureBox1.Size = new System.Drawing.Size(405, 326);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxPaintHandler);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMouseDownHandler);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMouseMoveHandler);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMouseUpHandler);
             // 
             // DrawButton
             // 
@@ -77,7 +77,7 @@
             this.Undo.TabIndex = 3;
             this.Undo.Text = "Undo";
             this.Undo.UseVisualStyleBackColor = true;
-            this.Undo.Click += new System.EventHandler(this.Undo_Click);
+            this.Undo.Click += new System.EventHandler(this.UndoButtonClick);
             // 
             // Redo
             // 
@@ -87,7 +87,7 @@
             this.Redo.TabIndex = 4;
             this.Redo.Text = "Redo";
             this.Redo.UseVisualStyleBackColor = true;
-            this.Redo.Click += new System.EventHandler(this.Redo_Click);
+            this.Redo.Click += new System.EventHandler(this.RedoButtonClick);
             // 
             // GraphicEditor
             // 
