@@ -9,7 +9,6 @@ namespace LocalNetworkNameSpace
     public class LocalNetwork
     {
         List<Computer> allComputers;
-        //private int numberOfUnInfectedComputers;
         private Random random = new Random();
         private bool[,] adjacencyMatrix;
 
@@ -33,9 +32,9 @@ namespace LocalNetworkNameSpace
             {
                 if (allComputers[i].IsInfected)
                 {
-                    for (int j = 0; j < allComputers.Count; ++j)
+                    for (int j = i; j < allComputers.Count; ++j)
                     {
-                        if (adjacencyMatrix[i,j] && !allComputers[j].IsInfected)
+                        if (adjacencyMatrix[i, j] && !allComputers[j].IsInfected)
                         {
                             if (random.Next(1, 100) <= allComputers[j].GetRiskOfIfection())
                             {
