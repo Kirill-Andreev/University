@@ -28,7 +28,7 @@ namespace LocalNetworkNameSpace
         /// </summary>
         public void Turn()
         {
-            List<Computer> WillInfected = new List<Computer>();
+            List<Computer> willInfected = new List<Computer>();
             for (int i = 0; i < allComputers.Count; ++i)
             {
                 if (allComputers[i].IsInfected)
@@ -39,14 +39,14 @@ namespace LocalNetworkNameSpace
                         {
                             if (random.Next(1, 100) <= allComputers[j].GetRiskOfIfection())
                             {
-                                WillInfected.Add(allComputers[j]);
+                                willInfected.Add(allComputers[j]);
                             }
                         }
                     }
                 }
             }
 
-            foreach (Computer computer in WillInfected)
+            foreach (Computer computer in willInfected)
             {
                 computer.IsInfected = true;
             }
