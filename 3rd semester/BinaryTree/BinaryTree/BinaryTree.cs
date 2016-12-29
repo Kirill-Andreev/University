@@ -30,59 +30,59 @@ namespace BinaryTreeNameSpace
 
         public bool Remove(T value)
         {
-            Node parent;
-            Node current;
-            
-            current = FindWithParent(value, out parent);
+            Node parent = null;
+            Node current = new Node(root.Element);
+            Tuple<Node, Node> curAndPar = FindWithParent(value, parent);            
+            //curAndPar = FindWithParent(value, parent);
 
-            if (current == null)
+            if (curAndPar.Item1 == null)
             {
                 return false;
             }
             
-            if (current.Right == null)
+            if (curAndPar.Item1.Right == null)
             {
-                if (parent == null)
+                if (curAndPar.Item2 == null)
                 {
-                    root = current.Left;
+                    root = curAndPar.Item1.Left;
                 }
                 else
                 {
-                    int result = parent.Element.CompareTo(current.Element);
+                    int result = curAndPar.Item2.Element.CompareTo(curAndPar.Item1.Element);
                     if (result > 0)
                     {
-                        parent.Left = current.Left;
+                        curAndPar.Item2.Left = curAndPar.Item1.Left;
                     }
                     else if (result < 0) 
                     {
-                        parent.Right = current.Left;
+                        curAndPar.Item2.Right = curAndPar.Item1.Left;
                     }
                 }
             } 
-            else if (current.Right.Left == null)
+            else if (curAndPar.Item1.Right.Left == null)
             {
-                current.Right.Left = current.Left;
-                if (parent == null)
+                curAndPar.Item1.Right.Left = curAndPar.Item1.Left;
+                if (curAndPar.Item2 == null)
                 {
-                    root = current.Right;
+                    root = curAndPar.Item1.Right;
                 }
                 else
                 {
-                    int result = parent.Element.CompareTo(current.Element);
+                    int result = curAndPar.Item2.Element.CompareTo(curAndPar.Item1.Element);
                     if (result > 0)
                     {
-                        parent.Left = current.Right;
+                        curAndPar.Item2.Left = curAndPar.Item1.Right;
                     }
                     else if (result < 0) 
-                    { 
-                        parent.Right = current.Right;
+                    {
+                        curAndPar.Item2.Right = curAndPar.Item1.Right;
                     }
                 }
             }
             else
             {
-                Node leftmost = current.Right.Left;
-                Node leftmostParent = current.Right;
+                Node leftmost = curAndPar.Item1.Right.Left;
+                Node leftmostParent = curAndPar.Item1.Right;
                 while (leftmost.Left != null)
                 {
                     leftmostParent = leftmost;
@@ -90,22 +90,22 @@ namespace BinaryTreeNameSpace
                 }
  
                 leftmostParent.Left = leftmost.Right;
-                leftmost.Left = current.Left;
-                leftmost.Right = current.Right;
-                if (parent == null)
+                leftmost.Left = curAndPar.Item1.Left;
+                leftmost.Right = curAndPar.Item1.Right;
+                if (curAndPar.Item2 == null)
                 {
                     root = leftmost;
                 }
                 else
                 {
-                    int result = parent.Element.CompareTo(current.Element);
+                    int result = curAndPar.Item2.Element.CompareTo(curAndPar.Item1.Element);
                     if (result > 0)
                     {
-                        parent.Left = leftmost;
+                        curAndPar.Item2.Left = leftmost;
                     }
                     else if (result < 0)
                     {
-                        parent.Right = leftmost;
+                        curAndPar.Item2.Right = leftmost;
                     }
                 }
             }
@@ -115,8 +115,11 @@ namespace BinaryTreeNameSpace
 
         public bool Contains(T value)
         {
-            Node parent;
-            return FindWithParent(value, out parent) != null;
+            Node parent = null;
+            Node current = new Node(root.Element);
+            Tuple<Node, Node> curAndPar = new Tuple<Node, Node>(current, parent);
+            curAndPar = FindWithParent(value, curAndPar.Item2);
+            return curAndPar.Item1 != null;
         }
 
         /// <summary>
@@ -196,7 +199,7 @@ namespace BinaryTreeNameSpace
         /// <param name="element"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        private Node FindWithParent(T element, out Node parent)
+        private Tuple<Node, Node> FindWithParent(T element, Node parent)
         {
             Node current = root;
             parent = null;
@@ -221,7 +224,7 @@ namespace BinaryTreeNameSpace
                 }
             }
 
-            return current;
+            return new Tuple<Node, Node>(current, parent);
         }
 
         /// <summary>
