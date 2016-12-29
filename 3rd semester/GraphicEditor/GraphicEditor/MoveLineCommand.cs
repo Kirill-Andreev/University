@@ -6,11 +6,11 @@
     /// </summary>
     public class MoveLineCommand : ICommand
     {
-        Line line;
-        LinesList linesList = new LinesList();
+        private Line line;
+        private LinesList linesList = new LinesList();
 
         private TwoPoints prevCoords;
-        public TwoPoints coords;
+        private TwoPoints coords;
 
         /// <summary>
         /// Class constructor

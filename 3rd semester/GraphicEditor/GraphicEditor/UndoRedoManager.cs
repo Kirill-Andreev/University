@@ -7,8 +7,8 @@ namespace GraphicEditor
     /// </summary>
     public class UndoRedoManager
     {
-        Stack<ICommand> UndoStack { get; set; }
-        Stack<ICommand> RedoStack { get; set; }
+        public Stack<ICommand> UndoStack { get; set; }
+        public Stack<ICommand> RedoStack { get; set; }
 
         public UndoRedoManager()
         {
