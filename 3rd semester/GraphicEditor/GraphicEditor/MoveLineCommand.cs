@@ -7,38 +7,38 @@ using System.Threading.Tasks;
 
 namespace GraphicEditor
 {
-    public class MoveLineCommand
+    public class MoveLineCommand : ICommand
     {
         Line line;
         LinesList linesList = new LinesList();
 
-        private Point prevPointLocation;
+        private TwoPoints prevCoords;
+        public TwoPoints coords;
 
-        public MoveLineCommand(/*LinesList linesListSet,*/ Line lineSet)
+        public MoveLineCommand(Line lineSet, TwoPoints coords)
         {
-            //linesList = linesListSet;
             line = lineSet;
+            this.coords = coords;
         }
 
-        public void Execute(Point newPoint)
+        public void Execute()
         {
             if (line.pointClicked1)
             {
-                prevPointLocation = line.Point1;
-                line.Point1 = newPoint;
                 line.pointClicked1 = false;
             }
             else
             {
-                prevPointLocation = line.Point2;
-                line.Point2 = newPoint;
                 line.pointClicked2 = false;
             }
+
+            prevCoords = line.coords;
+            line.coords = coords;
         }
 
         public void UnExecute()
         {
-
+            line.coords = prevCoords;
         }
     }
 }

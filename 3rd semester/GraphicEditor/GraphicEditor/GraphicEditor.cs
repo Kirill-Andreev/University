@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GraphicEditor
 {
     public partial class GraphicEditor : Form
     {
-        ICommand addLineCommand;
-        MoveLineCommand moveLineCommand;
+        //ICommand addLineCommand;
+       // MoveLineCommand moveLineCommand;
         LinesList linesList = new LinesList();
         Line line;
+        private UndoRedoManager manager = new UndoRedoManager();
 
         bool IsClicked = false;
         bool IsDrawButtonClicked = true;
@@ -35,11 +30,11 @@ namespace GraphicEditor
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             IsClicked = false;
-            if(IsDrawButtonClicked)
+            if (IsDrawButtonClicked)
             {
-                line = new Line(new Point(xCoord1, yCoord1), new Point(xCoord2, yCoord2));
-                addLineCommand = new AddLineCommand(linesList, line);
-                addLineCommand.Execute();
+                line = new Line(new TwoPoints { Point1 = new Point(xCoord1, yCoord1), Point2 = new Point(xCoord2, yCoord2) });
+                var addLineCommand = new AddLineCommand(linesList, line);
+                manager.Execute(addLineCommand);
             }
             else if (IsMoveButtonClicked)
             {
@@ -47,8 +42,8 @@ namespace GraphicEditor
                 {
                     if (line.IsLineClicked())
                     {
-                        moveLineCommand = new MoveLineCommand(line);
-                        moveLineCommand.Execute(e.Location);
+                        var moveLineCommand = new MoveLineCommand(line, new TwoPoints { Point1 = new Point(xCoord1, yCoord1), Point2 = e.Location });
+                        manager.Execute(moveLineCommand);
                     }
                 }
             }
@@ -71,15 +66,15 @@ namespace GraphicEditor
                     line.PointOfLineClicked(new Point(e.X, e.Y));
                     if (line.pointClicked1)
                     {
-                        xCoord1 = line.Point2.X;
-                        yCoord1 = line.Point2.Y;
+                        xCoord1 = line.coords.Point2.X;
+                        yCoord1 = line.coords.Point2.Y;
                         xCoord2 = e.X;
                         yCoord2 = e.Y;
                     }
                     else if (line.pointClicked2)
                     {
-                        xCoord1 = line.Point1.X;
-                        yCoord1 = line.Point1.Y;
+                        xCoord1 = line.coords.Point1.X;
+                        yCoord1 = line.coords.Point1.Y;
                         xCoord2 = e.X;
                         yCoord2 = e.Y;
                     }
@@ -100,14 +95,14 @@ namespace GraphicEditor
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             Pen pen = new Pen(Color.Black);
-            if (IsDrawButtonClicked || IsMoveButtonClicked && line.IsLineClicked())
+            if (IsClicked && (IsDrawButtonClicked || IsMoveButtonClicked && line.IsLineClicked()))
             {
                 e.Graphics.DrawLine(pen, new Point(xCoord1, yCoord1), new Point(xCoord2, yCoord2));
             }
             
             foreach (var line in linesList.lineList)
             {
-                e.Graphics.DrawLine(pen, line.Point1, line.Point2);
+                e.Graphics.DrawLine(pen, line.coords.Point1, line.coords.Point2);
             }
         }
 
@@ -121,6 +116,18 @@ namespace GraphicEditor
         {
             IsMoveButtonClicked = false;
             IsDrawButtonClicked = true;
+        }
+
+        private void Undo_Click(object sender, EventArgs e)
+        {
+            manager.Undo();
+            pictureBox1.Invalidate();
+        }
+
+        private void Redo_Click(object sender, EventArgs e)
+        {
+            manager.Redo();
+            pictureBox1.Invalidate();
         }
     }
 }

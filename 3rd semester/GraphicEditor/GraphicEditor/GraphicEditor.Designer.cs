@@ -31,6 +31,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.DrawButton = new System.Windows.Forms.Button();
             this.MoveButton = new System.Windows.Forms.Button();
+            this.Undo = new System.Windows.Forms.Button();
+            this.Redo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,12 +69,34 @@
             this.MoveButton.UseVisualStyleBackColor = true;
             this.MoveButton.Click += new System.EventHandler(this.MoveButtonClick);
             // 
+            // Undo
+            // 
+            this.Undo.Location = new System.Drawing.Point(437, 201);
+            this.Undo.Name = "Undo";
+            this.Undo.Size = new System.Drawing.Size(126, 40);
+            this.Undo.TabIndex = 3;
+            this.Undo.Text = "Undo";
+            this.Undo.UseVisualStyleBackColor = true;
+            this.Undo.Click += new System.EventHandler(this.Undo_Click);
+            // 
+            // Redo
+            // 
+            this.Redo.Location = new System.Drawing.Point(437, 247);
+            this.Redo.Name = "Redo";
+            this.Redo.Size = new System.Drawing.Size(126, 38);
+            this.Redo.TabIndex = 4;
+            this.Redo.Text = "Redo";
+            this.Redo.UseVisualStyleBackColor = true;
+            this.Redo.Click += new System.EventHandler(this.Redo_Click);
+            // 
             // GraphicEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(575, 350);
+            this.Controls.Add(this.Redo);
+            this.Controls.Add(this.Undo);
             this.Controls.Add(this.MoveButton);
             this.Controls.Add(this.DrawButton);
             this.Controls.Add(this.pictureBox1);
@@ -88,6 +112,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button DrawButton;
         private System.Windows.Forms.Button MoveButton;
+        private System.Windows.Forms.Button Undo;
+        private System.Windows.Forms.Button Redo;
     }
 }
 
