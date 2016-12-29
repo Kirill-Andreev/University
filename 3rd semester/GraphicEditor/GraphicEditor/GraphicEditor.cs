@@ -6,35 +6,35 @@ namespace GraphicEditor
 {
     public partial class GraphicEditor : Form
     {
-        LinesList linesList = new LinesList();
-        Line line;
+        private LinesList linesList = new LinesList();
+        private Line line;
         private UndoRedoManager manager = new UndoRedoManager();
 
-        bool IsClicked = false;
-        bool IsDrawButtonClicked = true;
-        bool IsMoveButtonClicked = false;
+        private bool isClicked = false;
+        private bool isDrawButtonClicked = true;
+        private bool isMoveButtonClicked = false;
 
-        public int xCoord1;
-        public int yCoord1;
+        private int xCoord1;
+        private int yCoord1;
 
-        public int xCoord2;
-        public int yCoord2;
+        private int xCoord2;
+        private int yCoord2;
 
         public GraphicEditor()
         {
             InitializeComponent();
         }
 
-        private void pictureBoxMouseUpHandler(object sender, MouseEventArgs e)
+        private void PictureBoxMouseUpHandler(object sender, MouseEventArgs e)
         {
-            IsClicked = false;
-            if (IsDrawButtonClicked)
+            isClicked = false;
+            if (isDrawButtonClicked)
             {
                 line = new Line(new TwoPoints { Point1 = new Point(xCoord1, yCoord1), Point2 = new Point(xCoord2, yCoord2) });
                 var addLineCommand = new AddLineCommand(linesList, line);
                 manager.Execute(addLineCommand);
             }
-            else if (IsMoveButtonClicked)
+            else if (isMoveButtonClicked)
             {
                 foreach (var line in linesList.lineList)
                 {
@@ -49,15 +49,15 @@ namespace GraphicEditor
             pictureBox1.Invalidate();
         }
 
-        private void pictureBoxMouseDownHandler(object sender, MouseEventArgs e)
+        private void PictureBoxMouseDownHandler(object sender, MouseEventArgs e)
         {
-            IsClicked = true;
-            if (IsDrawButtonClicked)
+            isClicked = true;
+            if (isDrawButtonClicked)
             {
                 xCoord1 = e.X;
                 yCoord1 = e.Y;
             }
-            else if (IsMoveButtonClicked)
+            else if (isMoveButtonClicked)
             {
                 foreach (var line in linesList.lineList)
                 {
@@ -80,9 +80,9 @@ namespace GraphicEditor
             }
         }
 
-        private void pictureBoxMouseMoveHandler(object sender, MouseEventArgs e)
+        private void PictureBoxMouseMoveHandler(object sender, MouseEventArgs e)
         {
-            if (IsClicked)
+            if (isClicked)
             {
                 xCoord2 = e.X;
                 yCoord2 = e.Y;
@@ -90,10 +90,10 @@ namespace GraphicEditor
             }
         }
 
-        private void pictureBoxPaintHandler(object sender, PaintEventArgs e)
+        private void PictureBoxPaintHandler(object sender, PaintEventArgs e)
         {
             Pen pen = new Pen(Color.Black);
-            if (IsClicked && (IsDrawButtonClicked || IsMoveButtonClicked && line.IsLineClicked()))
+            if (isClicked && (isDrawButtonClicked || isMoveButtonClicked && line.IsLineClicked()))
             {
                 e.Graphics.DrawLine(pen, new Point(xCoord1, yCoord1), new Point(xCoord2, yCoord2));
             }
@@ -106,14 +106,14 @@ namespace GraphicEditor
 
         private void MoveButtonClick(object sender, EventArgs e)
         {
-            IsDrawButtonClicked = false;
-            IsMoveButtonClicked = true;
+            isDrawButtonClicked = false;
+            isMoveButtonClicked = true;
         }
 
         private void DrawButtonClick(object sender, EventArgs e)
         {
-            IsMoveButtonClicked = false;
-            IsDrawButtonClicked = true;
+            isMoveButtonClicked = false;
+            isDrawButtonClicked = true;
         }
 
         private void UndoButtonClick(object sender, EventArgs e)

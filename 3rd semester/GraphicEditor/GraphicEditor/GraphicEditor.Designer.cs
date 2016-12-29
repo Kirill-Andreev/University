@@ -44,10 +44,10 @@
             this.pictureBox1.Size = new System.Drawing.Size(405, 326);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxPaintHandler);
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMouseDownHandler);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMouseMoveHandler);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMouseUpHandler);
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBoxPaintHandler);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBoxMouseDownHandler);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBoxMouseMoveHandler);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBoxMouseUpHandler);
             // 
             // DrawButton
             // 

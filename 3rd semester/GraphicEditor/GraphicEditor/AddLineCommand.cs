@@ -11,8 +11,8 @@ namespace GraphicEditor
     /// </summary>
     public class AddLineCommand : ICommand
     {
-        Line line;
-        LinesList linesList = new LinesList();
+        private Line line;
+        private LinesList linesList = new LinesList();
 
         /// <summary>
         /// Class constructor

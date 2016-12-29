@@ -46,13 +46,17 @@ namespace GraphicEditor
         public void Undo(int count)
         {
             for (int i = 0; i < count; i++)
+            {
                 Undo();
+            }
         }
 
         public void Redo(int count)
         {
             for (int i = 0; i < count; i++)
+            {
                 Redo();
+            }
         }
     }
 }
