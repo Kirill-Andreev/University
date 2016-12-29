@@ -6,8 +6,6 @@ namespace GraphicEditor
 {
     public partial class GraphicEditor : Form
     {
-        //ICommand addLineCommand;
-       // MoveLineCommand moveLineCommand;
         LinesList linesList = new LinesList();
         Line line;
         private UndoRedoManager manager = new UndoRedoManager();
@@ -27,7 +25,7 @@ namespace GraphicEditor
             InitializeComponent();
         }
 
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        private void pictureBoxMouseUpHandler(object sender, MouseEventArgs e)
         {
             IsClicked = false;
             if (IsDrawButtonClicked)
@@ -51,7 +49,7 @@ namespace GraphicEditor
             pictureBox1.Invalidate();
         }
 
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        private void pictureBoxMouseDownHandler(object sender, MouseEventArgs e)
         {
             IsClicked = true;
             if (IsDrawButtonClicked)
@@ -82,7 +80,7 @@ namespace GraphicEditor
             }
         }
 
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        private void pictureBoxMouseMoveHandler(object sender, MouseEventArgs e)
         {
             if (IsClicked)
             {
@@ -92,7 +90,7 @@ namespace GraphicEditor
             }
         }
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        private void pictureBoxPaintHandler(object sender, PaintEventArgs e)
         {
             Pen pen = new Pen(Color.Black);
             if (IsClicked && (IsDrawButtonClicked || IsMoveButtonClicked && line.IsLineClicked()))
@@ -118,13 +116,13 @@ namespace GraphicEditor
             IsDrawButtonClicked = true;
         }
 
-        private void Undo_Click(object sender, EventArgs e)
+        private void UndoButtonClick(object sender, EventArgs e)
         {
             manager.Undo();
             pictureBox1.Invalidate();
         }
 
-        private void Redo_Click(object sender, EventArgs e)
+        private void RedoButtonClick(object sender, EventArgs e)
         {
             manager.Redo();
             pictureBox1.Invalidate();

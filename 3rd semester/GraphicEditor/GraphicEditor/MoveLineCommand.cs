@@ -1,12 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GraphicEditor
+﻿namespace GraphicEditor
 {
+    /// <summary>
+    /// Command that can move line
+    /// and cancel this move
+    /// </summary>
     public class MoveLineCommand : ICommand
     {
         Line line;
@@ -15,12 +12,23 @@ namespace GraphicEditor
         private TwoPoints prevCoords;
         public TwoPoints coords;
 
+        /// <summary>
+        /// Class constructor
+        /// which takes as argument moving line
+        /// and new coordinates of its point
+        /// </summary>
+        /// <param name="lineSet"></param>
+        /// <param name="coords"></param>
         public MoveLineCommand(Line lineSet, TwoPoints coords)
         {
             line = lineSet;
             this.coords = coords;
         }
 
+        /// <summary>
+        /// Rememberes previuos coordinates
+        /// and moves line
+        /// </summary>
         public void Execute()
         {
             if (line.pointClicked1)
@@ -36,6 +44,9 @@ namespace GraphicEditor
             line.coords = coords;
         }
 
+        /// <summary>
+        /// Returns line on previous coordinates
+        /// </summary>
         public void UnExecute()
         {
             line.coords = prevCoords;

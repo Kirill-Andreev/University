@@ -2,6 +2,9 @@
 
 namespace GraphicEditor
 {
+    /// <summary>
+    /// Class that contains coordinates of two points
+    /// </summary>
     public class TwoPoints
     {
         public Point Point1 { get; set; }
