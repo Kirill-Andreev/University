@@ -32,8 +32,7 @@ namespace BinaryTreeNameSpace
         {
             Node parent = null;
             Node current = new Node(root.Element);
-            Tuple<Node, Node> curAndPar = FindWithParent(value, parent);            
-            //curAndPar = FindWithParent(value, parent);
+            Tuple<Node, Node> curAndPar = FindWithParent(value, parent);
 
             if (curAndPar.Item1 == null)
             {
