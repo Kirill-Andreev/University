@@ -32,10 +32,10 @@ namespace RobotsNameSpace
     /// </summary>
     public class Graph
     {
-        public List<Vertex> vertexList;
+        private List<Vertex> vertexList;
         private List<int> colouredVertexList  = new List<int>();
         private List<int> visitedVertexList = new List<int>();
-        public bool[,] adjacencyMatrix;
+        private bool[,] adjacencyMatrix;
 
         /// <summary>
         /// Graph constructor

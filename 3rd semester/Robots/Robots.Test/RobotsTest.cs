@@ -7,8 +7,8 @@ namespace RobotsNameSpace
     [TestClass]
     public class RobotsTest
     {
-        List<Vertex> vertexList;
-        bool[,] matrix;
+        private List<Vertex> vertexList;
+        private bool[,] matrix;
 
        [TestMethod]
         public void RobotsWillNotCrushTest()
@@ -24,7 +24,7 @@ namespace RobotsNameSpace
                 new Vertex(false)
             };
 
-            matrix = new bool[,]
+            matrix = new [,]
             {
                 { false, true, false, false, false, false, true },
                 { true, false, true, false, false, false, true },
@@ -53,7 +53,7 @@ namespace RobotsNameSpace
                 new Vertex(false)
             };
 
-            matrix = new bool[,]
+            matrix = new [,]
             {
                 { false, true, false, false, false, false, true },
                 { true, false, true, false, false, false, false },
@@ -82,7 +82,7 @@ namespace RobotsNameSpace
                 new Vertex(false)
             };
 
-            matrix = new bool[,]
+            matrix = new [,]
             {
                 { false, true, false, false, false, false, true },
                 { true, false, true, false, false, false, true },
