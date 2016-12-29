@@ -93,7 +93,7 @@ namespace GraphicEditor
         private void PictureBoxPaintHandler(object sender, PaintEventArgs e)
         {
             Pen pen = new Pen(Color.Black);
-            if (isClicked && (isDrawButtonClicked || isMoveButtonClicked && line.IsLineClicked()))
+            if (isClicked && (isDrawButtonClicked || isMoveButtonClicked))
             {
                 e.Graphics.DrawLine(pen, new Point(xCoord1, yCoord1), new Point(xCoord2, yCoord2));
             }
