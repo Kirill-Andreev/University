@@ -1,4 +1,6 @@
-﻿let rec multDigits n =
+﻿module Program
+
+let rec multDigits n =
     if n < 10 then n
     else (n % 10) * multDigits (n/10)
 
