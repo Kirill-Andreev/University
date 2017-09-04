@@ -1,4 +1,6 @@
-﻿let reverseList list = 
+﻿module Program
+
+let reverseList list = 
      let rec reverse list acc =
         match list with
         | head :: tail -> reverse tail (head :: acc)
