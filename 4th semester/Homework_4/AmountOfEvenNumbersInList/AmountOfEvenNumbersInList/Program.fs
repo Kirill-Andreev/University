@@ -1,4 +1,6 @@
-﻿let amountOfEven list = 
+﻿module Program
+
+let amountOfEven list = 
    let evenList = List.filter (fun x -> x % 2 = 0) list
    List.length evenList
 
