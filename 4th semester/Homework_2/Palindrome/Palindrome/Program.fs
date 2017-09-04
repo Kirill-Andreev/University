@@ -1,4 +1,6 @@
-﻿let rec checkPalindrom (str : string) =
+﻿module Program
+
+let rec checkPalindrom (str : string) =
     let size = str.Length
     match size with
     | 0 |  1 -> true
