@@ -1,4 +1,6 @@
-﻿let split list =
+﻿module Program
+
+let split list =
     let rec aux l acc1 acc2 =
         match l with
             | [] -> (acc1, acc2)
