@@ -1,4 +1,6 @@
-﻿let positionOfMaxSum list =
+﻿module Program
+
+let positionOfMaxSum list =
     let tupleList = List.zip (0 :: list) (list @ [0]) 
     let listSumTuple = List.map (fun (x, y) -> x + y) tupleList
     let listMax = List.max listSumTuple
