@@ -1,4 +1,6 @@
-﻿let firstEntryOfNumber list number = 
+﻿module Program
+
+let firstEntryOfNumber list number = 
     let rec firstEntry list number position = 
         match list with 
         | [] -> -1
