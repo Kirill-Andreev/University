@@ -1,4 +1,6 @@
-﻿let isUnique list = 
+﻿module Program
+
+let isUnique list = 
     let filteredList = List.distinct list
     List.length list = List.length filteredList
 
