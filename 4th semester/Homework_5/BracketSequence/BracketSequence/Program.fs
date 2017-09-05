@@ -1,4 +1,6 @@
-﻿let isCorrect string = 
+﻿module Program
+
+let isCorrect string = 
     let rec aux string position checkList =
         if (position <> String.length string) then
            if (string.[position] = '{' || string.[position] = '(' || string.[position] = '[') then
@@ -21,7 +23,3 @@
             else 
               false;
     aux string 0 [];
-
-printf("Sequence is correct: %b \n") <| isCorrect "({[]})"
-printf("Sequence is correct: %b \n") <| isCorrect "({])"
-printf("Sequence is correct: %b \n") <| isCorrect ""
