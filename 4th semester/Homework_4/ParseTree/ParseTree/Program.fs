@@ -19,12 +19,3 @@ let rec parse tree =
         | Sub -> parse left - parse right
         | Mult -> parse left * parse right
         | Div -> parse left / parse right
-
-let testTree = 
-     Node(
-         Mult, 
-         Node(Add, Tip(4), Tip(5)),
-         Node(Sub, Tip(5), Tip(7))
-     )
-
-printf "%d" <| parse testTree
