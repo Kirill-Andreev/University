@@ -18,10 +18,13 @@ let addRecord name number data =
     
 let findNumber name (data) =
     let data = List.filter (fun x -> fst x = name) data
+    let res = false
     if data.IsEmpty then
         printfn "\nPhone not found\n"
     else
+        res = false
         List.map (fun x -> printfn "%s\n" (snd x)) data |> ignore
+    res
 
 let findName number (data) =
     let data = List.filter (fun x -> snd x = number) data
