@@ -13,27 +13,24 @@ let menu() =
             6 - Read data from file"
 
 let addRecord name number data =
-    let data = (name, number) :: data
-    data
+    (name, number) :: data
     
-let findNumber name (data) =
+let findNumber name data =
     let data = List.filter (fun x -> fst x = name) data
     let res = false
     if data.IsEmpty then
         printfn "\nPhone not found\n"
     else
-        res = false
-        List.map (fun x -> printfn "%s\n" (snd x)) data |> ignore
-    res
+        List.iter (fun x -> printfn "%s\n" (snd x)) data |> ignore
 
-let findName number (data) =
+let findName number data =
     let data = List.filter (fun x -> snd x = number) data
     if data.IsEmpty then
         printfn "\nName not found\n"
     else
-        List.map (fun x -> printfn "%s\n" (fst x)) data |> ignore
+        List.iter (fun x -> printfn "%s\n" (fst x)) data |> ignore
 
-let printData (data) =
+let printData data =
     List.iter (fun x -> printfn "%s %s\n" <|| x) data
     
 let writeToFile path (str : string) =
@@ -46,11 +43,21 @@ let writeToFile path (str : string) =
 let saveData (path : string) data =
     writeToFile path (data.ToString())
 
-let readData path (data) = 
+let getNumber str = 
+    let number = String.filter (fun x -> (x >= '0') && (x <= '9')) str
+    number
+
+let getName str = 
+    let name = String.filter (fun x -> (x <= 'z') && (x >= 'a') || (x <= 'Z') && (x >= 'A')) str
+    name
+
+let readData path data = 
     try
         use reader = File.OpenText path
         let output = reader.ReadLine()
-        printf "%s" output
+        let outputToArray = output.Split(';')
+        let data = Array.toList <| Array.map (fun x -> (getName x, getNumber x)) outputToArray
+        printf "%A" data
     with
     | exc -> printfn "Error %s" exc.Message
 
