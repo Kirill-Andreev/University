@@ -6,13 +6,13 @@ open FsUnit
 
 [<Test>]
     let ``correct bracket sequence test`` () =
-        isCorrect "({[]})" |> should equal true
+        isCorrect <| Seq.toList "({[]})" |> should equal true
 
 [<Test>]
     let ``incorrect bracket sequence test`` () =
-        isCorrect "({])" |> should equal false
+        isCorrect <| Seq.toList "({])" |> should equal false
 
 [<Test>]
     let ``empty bracket sequence test`` () =
-        isCorrect "" |> should equal true
+        isCorrect <| Seq.toList "" |> should equal true
 
