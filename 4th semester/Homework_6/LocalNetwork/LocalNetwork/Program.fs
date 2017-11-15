@@ -62,23 +62,23 @@ type LocalNetwork(computers : Computer [], adjacencyMatrix : int [] []) =
                     if currentInfectState.[i] then
                         computers.[j].turn
 
-let adjacencyMatrix = [|[|0; 1; 1; 0|]; 
-                        [|1; 0; 0; 1|];
-                        [|1; 0; 0; 1|];
-                        [|0; 1; 1; 0|];|]
-
-let comp0 = Computer(Linux, true)
-let comp1 = Computer(MacOS, false)
-let comp2 = Computer(Windows, false)
-let comp3 = Computer(Windows, true)
-
-let computers = [|comp0; comp1; comp2; comp3|]
-let localNetwork = LocalNetwork(computers, adjacencyMatrix)
-let finalState = [|for i in 1 .. computers.Length -> true|]
- 
-localNetwork.printState
-
-let i = 1
-while not (localNetwork.getInfectState = finalState) do
-    localNetwork.updateState
-    localNetwork.printState
+//let adjacencyMatrix = [|[|0; 1; 1; 0|]; 
+//                        [|1; 0; 0; 1|];
+//                        [|1; 0; 0; 1|];
+//                        [|0; 1; 1; 0|];|]
+//
+//let comp0 = Computer(Linux, true)
+//let comp1 = Computer(MacOS, false)
+//let comp2 = Computer(Windows, false)
+//let comp3 = Computer(Windows, true)
+//
+//let computers = [|comp0; comp1; comp2; comp3|]
+//let localNetwork = LocalNetwork(computers, adjacencyMatrix)
+//let finalState = [|for i in 1 .. computers.Length -> true|]
+// 
+//localNetwork.printState
+//
+//let i = 1
+//while not (localNetwork.getInfectState = finalState) do
+//    localNetwork.updateState
+//    localNetwork.printState
