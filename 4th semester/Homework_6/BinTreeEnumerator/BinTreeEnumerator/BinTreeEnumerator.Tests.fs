@@ -14,14 +14,14 @@ open FsUnit
 
 [<Test>]
     let ``remove test``() =
-        binaryTree <- binaryTree.Remove 4
-        binaryTree <- binaryTree.Remove 3
+        binaryTree.Remove 4
+        binaryTree.Remove 3
         binaryTree.Contains 1 |> should equal true
         binaryTree.Contains 2 |> should equal true
         binaryTree.Contains 4 |> should equal false
         binaryTree.Contains 3 |> should equal false
-        binaryTree <- binaryTree.Remove 1
-        binaryTree <- binaryTree.Remove 2
-        binaryTree <- binaryTree.Remove 4
-        binaryTree <- binaryTree.Remove 7
+        binaryTree.Remove 1
+        binaryTree.Remove 2
+        binaryTree.Remove 4
+        binaryTree.Remove 7
         binaryTree.IsEmpty |> should equal true

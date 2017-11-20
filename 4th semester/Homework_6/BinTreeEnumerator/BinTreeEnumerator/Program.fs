@@ -4,101 +4,102 @@ open System
 open System.Collections
 open System.Collections.Generic
 
-type TreeEnumerator<'a>(lst : list<'a>) =
-    let fullList = if lst.IsEmpty then List.empty else lst.Head :: lst
-    let mutable currentList = fullList
+type Tree<'a> =
+    | Tree of 'a * Tree<'a> * Tree<'a>
+    | Tip of 'a
+    | Empty
+
+type TreeEnumerator<'a when 'a : comparison>(tree : Tree<'a>) =
+    let rec treeToList tree =
+       match tree with
+        | Empty -> []
+        | Tip value -> [value] 
+        | Tree(value, left, right) ->  value :: treeToList left @ treeToList right
+
+    let currentList = ref (treeToList tree)
         
-    interface IEnumerator<'a> with
-        member this.Current
-            with get() = currentList.Head :> obj
-        member this.Current
-            with get() = currentList.Head
+    interface IEnumerator with
+        member this.get_Current() =
+            let current = (!currentList).Head :> obj 
+            currentList := (!currentList).Tail
+            current
         member this.MoveNext() =
-            match currentList with
-                | h :: t -> currentList <- t
-                            not t.IsEmpty
+            match !currentList with
+                | h :: t -> true
                 | [] -> false
-        member this.Reset() = currentList <- fullList
-        member this.Dispose() = ()
+        member this.Reset() = currentList := (treeToList tree)
 
-type BinaryTree<'a when 'a : comparison> = 
-    | BinaryTree of 'a * BinaryTree<'a> * BinaryTree<'a>
-    | Tip of ('a option)
-        with
-            member this.Add value =
-                match this with 
-                | BinaryTree(node, left, right) -> if (value > node) then BinaryTree(node, left, right.Add value)
-                                                   elif (value < node) then BinaryTree(node, left.Add value, right)
-                                                   else BinaryTree(node, left, right)
-                | Tip(node) -> match node with
-                               | None -> Tip(Some(value))
-                               | Some node -> if (value > node) then BinaryTree(node, Tip(None), Tip(Some(value)))
-                                              elif (value < node) then BinaryTree(node, Tip(Some(value)), Tip(None))
-                                              else BinaryTree(node, Tip(None), Tip(None))
+    interface IEnumerator<'a> with
+       member v.get_Current() = (!currentList).Head
+       member v.Dispose () = ()
 
-            member this.IsEmpty =
-                match this with
-                | BinaryTree(_) -> false
-                | Tip(node) -> match node with
-                               | Some _ -> false
-                               | None -> true 
-            
-            member this.Remove value =
-                let mostLeftNode this =
-                    let rec aux tree acc =
-                        match tree with
-                            | BinaryTree(node, left, right) -> if (node = aux left node)
-                                                               then aux right node
-                                                               else aux left node
-                            | Tip(node) -> match node with
-                                           | Some node -> node
-                                           | None -> acc
-                                                               
-                    match this with
-                    | BinaryTree(node, left, right) -> Some(aux this node)
-                    | Tip(node) -> match node with
-                                   | None -> None
-                                   | Some value -> Some value
-                                    
-                match this with
-                | BinaryTree(node, left, right) -> if (node < value) then BinaryTree(node, left, right.Remove value)
-                                                   elif (node > value) then BinaryTree(node, left.Remove value, right)
-                                                   else match mostLeftNode right with
-                                                        | None -> left
-                                                        | Some value -> BinaryTree(value, left, right.Remove value)   
-                | Tip(node) -> match node with
-                               | None -> Tip(None)
-                               | Some value -> Tip(None)
-            
-            member this.Contains value =
-                match this with
-                | BinaryTree(node, left, right) -> if (value > node) then right.Contains value
-                                                   elif (value < node) then left.Contains value
-                                                   else true
-                | Tip(node) -> match node with
-                               | None -> false
-                               | Some nodeVal -> (nodeVal = value)
+type BinaryTree<'a when 'a : comparison>() = 
+    let mutable tree : Tree<'a> = Empty
+    member this.Add value =
+        let rec aux value node =
+            match node with 
+            | Tree(node, left, right) -> if (value > node) then Tree(node, left, aux value right)
+                                         elif (value < node) then Tree(node, aux value left, right)
+                                         else Tree(node, left, right)
+            | Tip(node) -> if (value > node) then Tree(node, Empty, Tip(value))
+                           elif (value < node) then Tree(node, Tip(value), Empty)
+                           else Tree(node, Empty, Empty)
+            | Empty -> Tip(value)
+        tree <- aux value tree
 
-            member private this.ConvertToList =
-                let rec aux binTree acc =
-                    match binTree with
-                        | BinaryTree(value, left, right) -> let rightList = aux right List.Empty
-                                                            aux left ((value :: rightList) @ acc)            
-                        | Tip(node) -> match node with
-                                           | None -> acc
-                                           | Some value -> value :: acc
-                this |> aux <| List.empty
+    member this.IsEmpty =
+        let rec aux node =
+            match node with
+            | Tree(_) -> false
+            | Tip(node) -> false 
+            | Empty -> true
+        aux tree
 
-            interface IEnumerable<'a> with
-                member this.GetEnumerator() =
-                    (new TreeEnumerator<'a>(this.ConvertToList) :> IEnumerator<'a>)
-                member this.GetEnumerator() =
-                    (new TreeEnumerator<'a>(this.ConvertToList) :> IEnumerator)
+    member this.Remove value =
+        let rec mostLeftNode tree =
+            match tree with
+            | Empty -> Empty
+            | Tip(node) -> Tip(node)
+            | Tree(node, left, right) -> match left with
+                                         | Empty -> tree
+                                         | _ -> mostLeftNode left
 
-let mutable binaryTree = BinaryTree.Tip(Some(3))
-binaryTree <- binaryTree.Add 4
-binaryTree <- binaryTree.Add 1
-binaryTree <- binaryTree.Add 2
-binaryTree <- binaryTree.Add 7
+        let rec aux value node =                            
+            match node with
+            | Tree(node, left, right) -> if (node < value) then Tree(node, left, aux value right)
+                                         elif (node > value) then Tree(node, aux value left, right)
+                                         else match left with
+                                              | Empty -> Empty
+                                              | _ -> match right with
+                                                     | Empty -> left
+                                                     | _ -> let temp = mostLeftNode right
+                                                            match temp with
+                                                            | Tip(node) -> Tree(node, left, aux value right)
+                                                            | _ -> Empty
+            | Tip(node) -> if (node = value) then Empty
+                           else printfn "this value does not exist in tree"
+                                tree
+            | Empty -> Empty
+        if (this.Contains value) then tree <- aux value tree
+        else printfn "this value does not exist in tree"
+
+    member this.Contains value =
+        let rec aux value node =
+            match node with
+            | Tree(node, left, right) -> if (value > node) then aux value right
+                                             elif (value < node) then aux value left
+                                             else true
+            | Tip(node) -> (value = node)
+            | Empty -> false
+        aux value tree
+
+    interface IEnumerable with
+        member t.GetEnumerator() = new TreeEnumerator<'a>(tree) :> IEnumerator
+
+let binaryTree = new BinaryTree<int>()
+binaryTree.Add 4
+binaryTree.Add 1
+binaryTree.Add 2
+binaryTree.Add 7
 for n in binaryTree do 
     printf "%A " n
