@@ -30,8 +30,8 @@ type TreeEnumerator<'a when 'a : comparison>(tree : Tree<'a>) =
         member this.Reset() = currentList := (treeToList tree)
 
     interface IEnumerator<'a> with
-       member v.get_Current() = (!currentList).Head
-       member v.Dispose () = ()
+       member this.get_Current() = (!currentList).Head
+       member this.Dispose () = ()
 
 type BinaryTree<'a when 'a : comparison>() = 
     let mutable tree : Tree<'a> = Empty
@@ -66,20 +66,26 @@ type BinaryTree<'a when 'a : comparison>() =
 
         let rec aux value node =                            
             match node with
-            | Tree(node, left, right) -> if (node < value) then Tree(node, left, aux value right)
-                                         elif (node > value) then Tree(node, aux value left, right)
-                                         else match left with
-                                              | Empty -> Empty
-                                              | _ -> match right with
-                                                     | Empty -> left
-                                                     | _ -> let temp = mostLeftNode right
-                                                            match temp with
-                                                            | Tip(node) -> Tree(node, left, aux value right)
-                                                            | _ -> Empty
+            | Empty -> Empty
             | Tip(node) -> if (node = value) then Empty
                            else printfn "this value does not exist in tree"
                                 tree
-            | Empty -> Empty
+            | Tree(node, left, right) when (node < value) -> Tree(node, left, aux value right)
+            | Tree(node, left, right) when (node > value) -> Tree(node, aux value left, right)
+            | Tree(node, left, right) ->  match left with
+                                              | Empty -> match right with
+                                                         | Empty -> Empty
+                                                         | _ -> right
+                                              | _ -> match right with
+                                                     | Empty -> left
+                                                     | Tip(a) -> Tree(a, left, Empty)
+                                                     | Tree(node1, left1, right1) -> match left1 with
+                                                                                     | Empty -> Tree(node1, left, right1)
+                                                                                     | _ -> let temp = mostLeftNode right
+                                                                                            match temp with
+                                                                                            | Tree(node2, left3, right3) -> Tree(node2, left, aux node2 right)
+                                                                                            | _ -> Empty
+            
         if (this.Contains value) then tree <- aux value tree
         else printfn "this value does not exist in tree"
 
