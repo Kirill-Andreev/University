@@ -5,33 +5,33 @@ open System.Collections
 open System.Collections.Generic
 
 type Tree<'a> =
-    | Tree of 'a * Tree<'a> * Tree<'a>
-    | Tip of 'a
     | Empty
-
+    | Tip of 'a
+    | Tree of 'a * Tree<'a> * Tree<'a>
+    
 type TreeEnumerator<'a when 'a : comparison>(tree : Tree<'a>) =
     let rec treeToList tree =
        match tree with
         | Empty -> []
-        | Tip value -> [value] 
+        | Tip(value) -> [value] 
         | Tree(value, left, right) ->  value :: treeToList left @ treeToList right
 
-    let currentList = ref (treeToList tree)
+    let mutable currentList = treeToList tree
         
     interface IEnumerator with
         member this.get_Current() =
-            let current = (!currentList).Head :> obj 
-            currentList := (!currentList).Tail
+            let current = currentList.Head :> obj 
+            currentList <- currentList.Tail
             current
         member this.MoveNext() =
-            match !currentList with
+            match currentList with
                 | h :: t -> true
                 | [] -> false
-        member this.Reset() = currentList := (treeToList tree)
+        member this.Reset() = currentList <- (treeToList tree)
 
     interface IEnumerator<'a> with
-       member this.get_Current() = (!currentList).Head
-       member this.Dispose () = ()
+       member this.get_Current() = currentList.Head
+       member this.Dispose() = ()
 
 type BinaryTree<'a when 'a : comparison>() = 
     let mutable tree : Tree<'a> = Empty
@@ -51,7 +51,7 @@ type BinaryTree<'a when 'a : comparison>() =
         let rec aux node =
             match node with
             | Tree(_) -> false
-            | Tip(node) -> false 
+            | Tip(_) -> false 
             | Empty -> true
         aux tree
 
@@ -68,14 +68,11 @@ type BinaryTree<'a when 'a : comparison>() =
             match node with
             | Empty -> Empty
             | Tip(node) -> if (node = value) then Empty
-                           else printfn "this value does not exist in tree"
-                                tree
+                           else failwith "Contains method error"
             | Tree(node, left, right) when (node < value) -> Tree(node, left, aux value right)
             | Tree(node, left, right) when (node > value) -> Tree(node, aux value left, right)
             | Tree(node, left, right) ->  match left with
-                                              | Empty -> match right with
-                                                         | Empty -> Empty
-                                                         | _ -> right
+                                              | Empty -> right
                                               | _ -> match right with
                                                      | Empty -> left
                                                      | Tip(a) -> Tree(a, left, Empty)
