@@ -3,60 +3,60 @@
 open System
 
 type OperatingSystem =
-    abstract riskOfInfection : int
-    abstract name : string
+    abstract RiskOfInfection : int
+    abstract Name : string
 
 let Windows =
     { 
         new OperatingSystem with
-        member this.riskOfInfection = 40
-        member this.name = "Windows" 
+        member this.RiskOfInfection = 40
+        member this.Name = "Windows" 
     }
 
 let Linux =
     { 
         new OperatingSystem with
-        member this.riskOfInfection = 30
-        member this.name = "Linux" 
+        member this.RiskOfInfection = 30
+        member this.Name = "Linux" 
     }
 
 let MacOS =
     { 
         new OperatingSystem with
-        member this.riskOfInfection = 60
-        member this.name = "MacOS" 
+        member this.RiskOfInfection = 60
+        member this.Name = "MacOS" 
     }
 
 let rand = Random()
 
 type Computer(os : OperatingSystem, initialState : bool) =
     let mutable infection : bool = initialState
-    member this.operatingSystem = os
-    member this.operatingSystemName = os.name
-    member this.isInfected = infection
-    member this.turn rand =
-        if (rand < os.riskOfInfection) then 
+    member this.OperatingSystem = os
+    member this.OperatingSystemName = os.Name
+    member this.IsInfected = infection
+    member this.Turn rand =
+        if (rand < os.RiskOfInfection) then 
             infection <- true
 
 type LocalNetwork(computers : Computer [], adjacencyMatrix : int [] []) =
-    member this.computers = computers
-    member this.networkStructure = adjacencyMatrix 
-    member this.printState =
+    member this.Computers = computers
+    member this.NetworkStructure = adjacencyMatrix 
+    member this.PrintState =
         for i in 0..computers.Length - 1 do
-            if computers.[i].isInfected then
-                    printfn  "%A" ("computer " + string i + " with operating system " + string computers.[i].operatingSystemName + " is infected")
+            if computers.[i].IsInfected then
+                    printfn  "%A" ("computer " + string i + " with operating system " + string computers.[i].OperatingSystemName + " is infected")
             else 
-               printfn "%A" ("computer " + string i + " with operating system " + string computers.[i].operatingSystemName + " isn't infected")
+               printfn "%A" ("computer " + string i + " with operating system " + string computers.[i].OperatingSystemName + " isn't infected")
         printfn ""
-    member this.getInfectState = 
-        Array.init computers.Length (fun i -> computers.[i].isInfected)
+    member this.GetInfectState = 
+        Array.init computers.Length (fun i -> computers.[i].IsInfected)
 
-    member this.updateState rand =
-        let currentInfectState = this.getInfectState
+    member this.UpdateState rand =
+        let currentInfectState = this.GetInfectState
         let length = computers.Length
 
         for i in 0..length - 1 do
             for j in 0..length - 1 do
                 if adjacencyMatrix.[i].[j] = 1 then
                     if currentInfectState.[i] then
-                        computers.[j].turn rand
+                        computers.[j].Turn rand
