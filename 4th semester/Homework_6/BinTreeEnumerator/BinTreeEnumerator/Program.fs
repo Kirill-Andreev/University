@@ -14,21 +14,20 @@ type TreeEnumerator<'a when 'a : comparison>(tree : Tree<'a>) =
        match tree with
         | Empty -> []
         | Tip(value) -> [value] 
-        | Tree(value, left, right) ->  value :: treeToList left @ treeToList right
+        | Tree(value, left, right) -> (treeToList left) @ (value :: treeToList right)
 
     let mutable currentList = treeToList tree
-    
+    let mutable index = -1
+
     interface IEnumerator<'a> with
         member this.Current
-            with get() = currentList.Head :> obj
+            with get() = currentList.Item(index) :> obj
         member this.Current
-            with get() = currentList.Head
+            with get() = currentList.Item(index)
         member this.MoveNext() =
-            match currentList with
-                | h :: t -> currentList <- t
-                            not t.IsEmpty
-                | [] -> false
-        member this.Reset() = currentList <- (treeToList tree)
+            index <- index + 1
+            currentList.Length > index
+        member this.Reset() = index <- -1
         member this.Dispose() = ()    
 
 type BinaryTree<'a when 'a : comparison>() = 

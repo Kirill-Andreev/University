@@ -50,3 +50,23 @@ let ``Enumerator test``() =
     enumerator.MoveNext () |> ignore
     enumerator.Current |> should equal 1
     enumerator.Current |> should equal 1
+
+[<Test>]
+    let ``Enumerator test1``() =
+        let tree = BinaryTree()
+        [2; 1; 6; 3; 9; 7; 8] |> List.iter tree.Add
+        let enumerator = (tree :> IEnumerable).GetEnumerator ()
+        enumerator.MoveNext () |> ignore
+        enumerator.Current |> should equal 1
+        enumerator.MoveNext () |> ignore
+        enumerator.Current |> should equal 2
+        enumerator.MoveNext () |> ignore
+        enumerator.Current |> should equal 3
+        enumerator.MoveNext () |> ignore
+        enumerator.Current |> should equal 6
+        enumerator.MoveNext () |> ignore
+        enumerator.Current |> should equal 7
+        enumerator.MoveNext () |> ignore
+        enumerator.Current |> should equal 8
+        enumerator.MoveNext () |> ignore
+        enumerator.Current |> should equal 9
