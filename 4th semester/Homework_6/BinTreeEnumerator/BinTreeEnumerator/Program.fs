@@ -17,21 +17,19 @@ type TreeEnumerator<'a when 'a : comparison>(tree : Tree<'a>) =
         | Tree(value, left, right) ->  value :: treeToList left @ treeToList right
 
     let mutable currentList = treeToList tree
-        
-    interface IEnumerator with
-        member this.get_Current() =
-            let current = currentList.Head :> obj 
-            currentList <- currentList.Tail
-            current
+    
+    interface IEnumerator<'a> with
+        member this.Current
+            with get() = currentList.Head :> obj
+        member this.Current
+            with get() = currentList.Head
         member this.MoveNext() =
             match currentList with
-                | h :: t -> true
+                | h :: t -> currentList <- t
+                            not t.IsEmpty
                 | [] -> false
         member this.Reset() = currentList <- (treeToList tree)
-
-    interface IEnumerator<'a> with
-       member this.get_Current() = currentList.Head
-       member this.Dispose() = ()
+        member this.Dispose() = ()    
 
 type BinaryTree<'a when 'a : comparison>() = 
     let mutable tree : Tree<'a> = Empty
@@ -96,8 +94,11 @@ type BinaryTree<'a when 'a : comparison>() =
             | Empty -> false
         aux value tree
 
-    interface IEnumerable with
-        member t.GetEnumerator() = new TreeEnumerator<'a>(tree) :> IEnumerator
+    interface IEnumerable<'a> with
+        member this.GetEnumerator() =
+            new TreeEnumerator<'a>(tree) :> IEnumerator<'a>
+        member this.GetEnumerator() =
+           new TreeEnumerator<'a>(tree) :> IEnumerator
 
 let binaryTree = new BinaryTree<int>()
 binaryTree.Add 4

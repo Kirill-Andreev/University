@@ -3,6 +3,9 @@
 open Program
 open NUnit.Framework
 open FsUnit
+//open System
+open System.Collections
+//open System.Collections.Generic
 
 [<Test>]
     let ``Add test``() =
@@ -38,3 +41,12 @@ let ``Another remove test``() =
     tree.Contains 6 |> should equal false
     tree.Contains 3 |> should equal true
     tree.Contains 7 |> should equal true
+
+[<Test>]
+let ``Enumerator test``() =
+    let tree = BinaryTree()
+    [2; 1; 6] |> List.iter tree.Add
+    let enumerator = (tree :> IEnumerable).GetEnumerator ()
+    enumerator.MoveNext () |> ignore
+    enumerator.Current |> should equal 1
+    enumerator.Current |> should equal 1
